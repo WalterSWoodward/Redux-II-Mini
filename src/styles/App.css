@@ -26,3 +26,19 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+ul {
+  display: flex;
+  flex-direction: column;
+}
+
+li {
+  font-family: "Times New Roman";
+  align-self: center;
+  background: lavender;
+  color: rgb(250, 165, 8);
+  list-style-type: none;
+  width: 20%;
+  margin-bottom: 20px;
+  border: 5px solid grey;
+}

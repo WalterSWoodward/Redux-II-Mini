@@ -5,10 +5,14 @@ import logo from '../logo.svg';
 import '../styles/App.css';
 // pull in actions from action/index
 
+import { getChars } from '../actions';
+
 class App extends Component {
   componentDidMount() {
-    // call our action - FETCHING?
+    // call our actionCreator
+    this.props.getChars();
   }
+
   render() {
     return (
       <div className="App">
@@ -17,7 +21,11 @@ class App extends Component {
         ) : (
           <ul>
             {this.props.chars.map(char => {
-              return <li key={char.name}>{char.name}</li>;
+              return <li key={char.height}>
+                          <b>{char.name}</b><br/>
+                          {char.height}<br/>
+                          {char.mass}
+                     </li>;
             })}
           </ul>
         )}
@@ -28,7 +36,19 @@ class App extends Component {
 
 // our mapDispatchToProps needs to have two properties inherited from state
 // the chars and the fetching boolean
-// NOTE: connect makes the component a subscriber to any updated State
-export default connect(null, {
-  /* actions go here */
-})(App);
+// Remember that initial state is set in reducers
+
+const mapStateToProps = state => {
+  return {
+    fetching: state.fetching,
+    chars: state.chars,
+    error: state.errorMessage,
+    // Just trying this out.  So you can see that with this, and the initial
+    // state array 'bubblegumFlavors' defined in reducers, you will see this
+    // as a prop.
+    bubblegumFlavors: state.bubblegumFlavors,
+    lizFavMovie: state.lizFavMovie,
+  };
+};
+
+export default connect(mapStateToProps, { getChars })(App);

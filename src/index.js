@@ -3,32 +3,34 @@ import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
-// import logger from 'redux-logger';
+import logger from 'redux-logger';
 
 import './index.css';
 import { App } from './components';
+// import { FETCHED, FETCHING, ERROR } from './actions';
 
-import { rootReducer } from './reducers';
+import rootReducer from './reducers/rootReducer';
 
-// needed dependancies
-// applyMiddleware from redux
-// thunk from redux-thunk
-// logger from redux-logger
-// rootReducer from ./reducers
+// QUESTION: WHERE WILL WE USE THIS?? ON A HIGH LEVEL, WHAT IS GOING ON HERE?
+// ANSWER:
 
-// The last middleware in the chain points to dispatch (action)
-const sniffer = store => next => action => {
-  console.group(action.type);
-  console.log('Action: ', action)
+// CUSTUM Logger???:
+// everything goes through the SeNAte --  S.N.A
+  // store gives access to the store
+  // next is a pointer to the next middleware -- until the last middleware points to store.dispatch, which will dispatch to the reducers.
+// const sniffer = store => next => action => {
+//   console.group(action.type);
+//   console.log('Action: ', action);
 
-  return next(action) // if this is the last middleware, next points to the dispatch - store.dispatch
-  console.log('New State: ', store.getState())
-  console.groupEnd()
+//   const result = next(action); // if this is the last middleware, next points to store.dispatch
+//   console.log('New State: ', store.getState());
 
+//   console.groupEnd();
 
-};
+//   return result;
+// };
 
-const middleware = applyMiddleware(thunk)
+const middleware = applyMiddleware(logger, thunk);
 const store = createStore(rootReducer, middleware);
 
 ReactDOM.render(
