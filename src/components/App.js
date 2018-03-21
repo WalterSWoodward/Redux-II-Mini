@@ -7,7 +7,7 @@ import '../styles/App.css';
 
 class App extends Component {
   componentDidMount() {
-    // call our action
+    // call our action - FETCHING?
   }
   render() {
     return (
@@ -28,6 +28,7 @@ class App extends Component {
 
 // our mapDispatchToProps needs to have two properties inherited from state
 // the chars and the fetching boolean
+// NOTE: connect makes the component a subscriber to any updated State
 export default connect(null, {
   /* actions go here */
 })(App);
